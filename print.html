@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print Article</title>
+  <style>
+    /* ===== Page Setup ===== */
+    @page {
+      size: letter;
+      margin: 0.75in 1in;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 11.5pt;
+      line-height: 1.65;
+      color: #1a1a1a;
+      background: #fff;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Screen-only chrome */
+    @media screen {
+      body { padding: 48px 24px 80px; }
+    }
+    @media print {
+      body { padding: 0; max-width: none; }
+    }
+
+    /* ===== Article Header ===== */
+    .article-header {
+      margin-bottom: 2em;
+      padding-bottom: 1.5em;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .publication-name {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6em;
+    }
+
+    .article-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #000;
+      margin-bottom: 0.3em;
+    }
+
+    .article-subtitle {
+      font-size: 1.15em;
+      font-style: italic;
+      color: #555;
+      line-height: 1.4;
+      margin-bottom: 1em;
+    }
+
+    .article-meta {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.82em;
+      color: #777;
+    }
+
+    .article-meta .byline {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .article-meta .separator {
+      margin: 0 0.4em;
+      color: #ccc;
+    }
+
+    /* ===== Body Content ===== */
+    .article-body p {
+      margin-bottom: 1em;
+    }
+
+    .article-body h1 {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 1.8em 0 0.5em;
+      color: #000;
+    }
+
+    .article-body h2 {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.25em;
+      font-weight: 600;
+      margin: 1.5em 0 0.5em;
+      color: #111;
+    }
+
+    .article-body h3 {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.1em;
+      font-weight: 600;
+      margin: 1.3em 0 0.4em;
+      color: #222;
+    }
+
+    /* Images */
+    .article-body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em auto;
+    }
+
+    .article-body figure,
+    .article-body .captioned-image-container {
+      margin: 1.5em 0;
+      page-break-inside: avoid;
+    }
+
+    .article-body figcaption {
+      font-size: 0.82em;
+      color: #777;
+      text-align: center;
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+
+    /* Blockquotes */
+    .article-body blockquote {
+      border-left: 3px solid #ddd;
+      margin: 1.5em 0;
+      padding: 0.3em 0 0.3em 1.5em;
+      color: #333;
+    }
+
+    .article-body blockquote p {
+      margin-bottom: 0.5em;
+    }
+
+    .article-body blockquote em strong,
+    .article-body blockquote strong em {
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    /* Links */
+    .article-body a {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-decoration-color: #aaa;
+      text-underline-offset: 2px;
+    }
+
+    @media print {
+      .article-body a { color: #000; }
+    }
+
+    /* Horizontal rules */
+    .article-body hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 2em 0;
+    }
+
+    /* Lists */
+    .article-body ul, .article-body ol {
+      margin: 1em 0;
+      padding-left: 1.8em;
+    }
+
+    .article-body li {
+      margin-bottom: 0.4em;
+    }
+
+    /* Code */
+    .article-body code {
+      font-family: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: #f4f4f4;
+      padding: 0.15em 0.35em;
+      border-radius: 3px;
+    }
+
+    .article-body pre {
+      background: #f4f4f4;
+      padding: 1em;
+      overflow-x: auto;
+      border-radius: 4px;
+      margin: 1.5em 0;
+      page-break-inside: avoid;
+    }
+
+    .article-body pre code {
+      background: none;
+      padding: 0;
+    }
+
+    /* Tables */
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: 0.92em;
+      page-break-inside: avoid;
+    }
+
+    .article-body th, .article-body td {
+      border: 1px solid #ddd;
+      padding: 0.5em 0.75em;
+      text-align: left;
+    }
+
+    .article-body th {
+      background: #f8f8f8;
+      font-weight: 600;
+    }
+
+    /* Strikethrough */
+    .article-body s, .article-body del {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    /* ===== Print-specific ===== */
+    @media print {
+      h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+      }
+
+      figure, img, pre, blockquote, table {
+        page-break-inside: avoid;
+      }
+
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+    }
+
+    /* ===== Hide Substack UI artifacts ===== */
+    .subscription-widget-wrap-editor,
+    .subscription-widget,
+    .button-wrapper[data-attrs*="subscribe"],
+    .image-link-expand,
+    .pencraft.icon-container.restack-image,
+    .pencraft.icon-container.view-image,
+    [data-component-name="SubscribeWidgetToDOM"],
+    [data-component-name="ButtonCreateButton"] {
+      display: none !important;
+    }
+
+    /* Substack image wrappers — keep images, clean up wrappers */
+    .image2-inset { text-align: center; }
+    .image-link.image2 { text-decoration: none; }
+
+    /* ===== Footer ===== */
+    .article-footer {
+      margin-top: 3em;
+      padding-top: 1em;
+      border-top: 1px solid #ddd;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.78em;
+      color: #999;
+      text-align: center;
+    }
+
+    /* ===== Screen-only toolbar ===== */
+    .screen-toolbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #f8f8f8;
+      border-top: 1px solid #ddd;
+      padding: 12px 24px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .screen-toolbar button {
+      padding: 8px 24px;
+      background: #FF6719;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .screen-toolbar button:hover { background: #e55a14; }
+
+    @media print {
+      .screen-toolbar { display: none !important; }
+    }
+
+    /* Loading state */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #999;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">Loading article...</div>
+  <article id="article" style="display:none"></article>
+  <div class="screen-toolbar" id="toolbar" style="display:none">
+    <button id="print-btn">Save as PDF (Print)</button>
+  </div>
+  <script src="print.js"></script>
+</body>
+</html>
