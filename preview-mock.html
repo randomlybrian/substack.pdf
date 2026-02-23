@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print Preview Mock</title>
+  <style>
+    /* ===== Page Setup ===== */
+    @page {
+      size: letter;
+      margin: 0.75in 1in;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 11.5pt;
+      line-height: 1.65;
+      color: #1a1a1a;
+      background: #fff;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    @media screen {
+      body { padding: 48px 24px 80px; }
+    }
+    @media print {
+      body { padding: 0; max-width: none; }
+    }
+
+    .article-header {
+      margin-bottom: 2em;
+      padding-bottom: 1.5em;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .publication-name {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6em;
+    }
+
+    .article-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #000;
+      margin-bottom: 0.3em;
+    }
+
+    .article-subtitle {
+      font-size: 1.15em;
+      font-style: italic;
+      color: #555;
+      line-height: 1.4;
+      margin-bottom: 1em;
+    }
+
+    .article-meta {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.82em;
+      color: #777;
+    }
+
+    .article-meta .byline {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .article-meta .separator {
+      margin: 0 0.4em;
+      color: #ccc;
+    }
+
+    .article-body p {
+      margin-bottom: 1em;
+    }
+
+    .article-body h1 {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 1.8em 0 0.5em;
+      color: #000;
+    }
+
+    .article-body h2 {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.25em;
+      font-weight: 600;
+      margin: 1.5em 0 0.5em;
+      color: #111;
+    }
+
+    .article-body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em auto;
+    }
+
+    .article-body figure,
+    .article-body .captioned-image-container {
+      margin: 1.5em 0;
+      page-break-inside: avoid;
+    }
+
+    .article-body blockquote {
+      border-left: 3px solid #ddd;
+      margin: 1.5em 0;
+      padding: 0.3em 0 0.3em 1.5em;
+      color: #333;
+    }
+
+    .article-body blockquote p {
+      margin-bottom: 0.5em;
+    }
+
+    .article-body a {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-decoration-color: #aaa;
+      text-underline-offset: 2px;
+    }
+
+    .article-body hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 2em 0;
+    }
+
+    .article-body s, .article-body del {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    @media print {
+      h1, h2, h3 { page-break-after: avoid; }
+      figure, img, blockquote { page-break-inside: avoid; }
+      p { orphans: 3; widows: 3; }
+    }
+
+    .subscription-widget-wrap-editor,
+    .subscription-widget,
+    .button-wrapper,
+    .image-link-expand,
+    [data-component-name="SubscribeWidgetToDOM"],
+    [data-component-name="ButtonCreateButton"] {
+      display: none !important;
+    }
+
+    .image2-inset { text-align: center; }
+
+    .article-footer {
+      margin-top: 3em;
+      padding-top: 1em;
+      border-top: 1px solid #ddd;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.78em;
+      color: #999;
+      text-align: center;
+    }
+
+    .screen-toolbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #f8f8f8;
+      border-top: 1px solid #ddd;
+      padding: 12px 24px;
+      text-align: center;
+    }
+
+    .screen-toolbar button {
+      padding: 8px 24px;
+      background: #FF6719;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    @media print {
+      .screen-toolbar { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <header class="article-header">
+      <div class="publication-name">Citrini Research</div>
+      <h1 class="article-title">THE 2028 GLOBAL INTELLIGENCE CRISIS</h1>
+      <div class="article-subtitle">A Thought Exercise in Financial History, from the Future</div>
+      <div class="article-meta">
+        <span class="byline">Citrini, Alap Shah</span>
+        <span class="separator">|</span>
+        <span class="date">February 22, 2026</span>
+      </div>
+    </header>
+    <div class="article-body">
+      <h1><strong>Preface</strong></h1>
+      <p><em>What if our AI bullishness continues to be right...and what if that's actually bearish?</em></p>
+      <p><strong>What follows is a scenario, not a prediction.</strong> This isn't bear porn or AI doomer fan-fiction. The sole intent of this piece is modeling a scenario that's been relatively underexplored. Our friend Alap Shah posed the question, and together we brainstormed the answer.</p>
+      <p>Hopefully, reading this leaves you more prepared for potential left tail risks as AI makes the economy increasingly weird.</p>
+      <p><strong>This is the CitriniResearch Macro Memo from June 2028, detailing the progression and fallout of the Global Intelligence Crisis.</strong></p>
+      <hr>
+      <h1><strong>Macro Memo</strong></h1>
+      <h2><strong>The Consequences of Abundant Intelligence</strong></h2>
+      <p><em><strong>CitriniResearch</strong></em></p>
+      <p><em><strong><s>February 22nd, 2026</s> June 30th, 2028</strong></em></p>
+      <p>The unemployment rate printed 10.2% this morning, a 0.3% upside surprise. The market sold off 2% on the number, bringing the cumulative drawdown in the S&amp;P to 38% from its October 2026 highs.</p>
+      <p>Traders have grown numb. Six months ago, a print like this would have triggered a circuit breaker.</p>
+      <p><em><strong>Two years.</strong></em> That's all it took to get from "contained" and "sector-specific" to an economy that no longer resembles the one any of us grew up in.</p>
+      <p>The euphoria was palpable. By October 2026, the S&amp;P 500 flirted with 8000, the Nasdaq broke above 30k. The initial wave of layoffs due to human obsolescence began in early 2026, and they did exactly what layoffs are supposed to. Margins expanded, earnings beat, stocks rallied.</p>
+      <hr>
+      <h2><strong>How It Started</strong></h2>
+      <p>In late 2025, agentic coding tools took a step function jump in capability.</p>
+      <p>A competent developer working with Claude Code or Codex could now replicate the core functionality of a mid-market SaaS product in weeks.</p>
+      <blockquote>
+        <p><em><strong>SERVICENOW NET NEW ACV GROWTH DECELERATES TO 14% FROM 23%; ANNOUNCES 15% WORKFORCE REDUCTION AND 'STRUCTURAL EFFICIENCY PROGRAM'; SHARES FALL 18% | Bloomberg, October 2026</strong></em></p>
+      </blockquote>
+      <p>SaaS wasn't "dead". There was still a cost-benefit-analysis to running and supporting in-house builds. But in-house <em>was</em> an option, and that factored into pricing negotiations.</p>
+      <hr>
+      <h2><strong>When Friction Went to Zero</strong></h2>
+      <p>By early 2027, LLM usage had become default. People were using AI agents who didn't even know what an AI agent was.</p>
+      <blockquote>
+        <p><em><strong>MASTERCARD Q1 2027: NET REVENUES +6% Y/Y; PURCHASE VOLUME GROWTH SLOWS TO +3.4% Y/Y FROM +5.9% PRIOR QUARTER | Bloomberg, April 29 2027</strong></em></p>
+      </blockquote>
+      <p>Their moats were made of friction. And <strong>friction was going to zero.</strong></p>
+      <hr>
+      <h2><strong>The Intelligence Premium Unwind</strong></h2>
+      <p>Human intelligence derived its inherent premium from its scarcity. Every institution in our economy was designed for a world in which that assumption held.</p>
+      <p>We are now experiencing the unwind of that premium. The economy can find a new equilibrium. Getting there is one of the few tasks left that only humans can do.</p>
+      <p><em>But you're not reading this in June 2028. You're reading it in February 2026.</em></p>
+      <p><em>The canary is still alive.</em></p>
+    </div>
+    <footer class="article-footer">
+      https://www.citriniresearch.com/p/2028gic
+    </footer>
+  </article>
+  <div class="screen-toolbar">
+    <button onclick="window.print()">Save as PDF (Print)</button>
+  </div>
+</body>
+</html>
