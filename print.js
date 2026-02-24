@@ -43,7 +43,13 @@ function buildArticleHTML(data) {
   const byline = data.bylines.join(', ');
   const cleanBody = sanitizeBody(data.bodyHtml);
 
-  let html = '<header class="article-header">';
+  let html = '';
+
+  if (data.coverImage) {
+    html += `<div class="cover-image"><img src="${esc(data.coverImage)}" alt=""></div>`;
+  }
+
+  html += '<header class="article-header">';
 
   if (data.publication) {
     html += `<div class="publication-name">${esc(data.publication)}</div>`;

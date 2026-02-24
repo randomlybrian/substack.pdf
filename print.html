@@ -37,6 +37,27 @@
       body { padding: 0; max-width: none; }
     }
 
+    /* ===== Cover Image ===== */
+    .cover-image {
+      margin-bottom: 1.5em;
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    @media print {
+      .cover-image {
+        page-break-after: avoid;
+      }
+      .cover-image img {
+        border-radius: 0;
+      }
+    }
+
     /* ===== Article Header ===== */
     .article-header {
       margin-bottom: 2em;
