@@ -10,7 +10,10 @@ chrome.storage.local.get('printData', ({ printData }) => {
 
   // Build article
   articleEl.innerHTML = buildArticleHTML(printData);
-  document.title = printData.title || 'Substack Article';
+  // Set document title — Chrome uses this as the default PDF filename
+  const author = (printData.bylines || []).join(', ');
+  const title = printData.title || 'Substack Article';
+  document.title = author ? `${author} - ${title}` : title;
 
   // Show article, hide loading
   loadingEl.style.display = 'none';
