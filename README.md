@@ -31,10 +31,13 @@ Think of it as a smarter Cmd+P — it strips out subscribe buttons, navigation, 
 
 ## How It Works
 
-1. Click the extension icon on any Substack article
-2. The popup shows the detected article title
-3. Click **Save as PDF** — a print preview opens with the formatted article
-4. Chrome's print dialog appears — save as PDF or send to your printer
+| Step 1: Find an article | Step 2: Click the extension |
+|:-:|:-:|
+| ![Navigate to any Substack article](images/substack%20dot%20pdf%20step%201.png) | ![Extension detects the article](images/substack%20dot%20pdf%20step%202.png) |
+
+| Step 3: Preview the formatted output | Step 4: Save as PDF |
+|:-:|:-:|
+| ![Clean print preview](images/substack%20dot%20pdf%20step%203.png) | ![Chrome print dialog](images/substack%20dot%20pdf%20step%204.png) |
 
 The extension reads article data from Substack's page variables (`window._preloads`) with a DOM-based fallback for SPA-navigated pages. All processing happens locally in your browser — no data is sent anywhere.
 
